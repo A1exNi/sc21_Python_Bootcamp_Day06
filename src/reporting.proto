@@ -1,0 +1,44 @@
+syntax = "proto2";
+
+package reporting;
+
+message Spaceship {
+    enum Alignment {
+        Ally = 0;
+        Enemy = 1;
+    }
+    enum Class {
+        Corvette = 0;
+        Frigate = 1;
+        Cruiser = 2;
+        Destroyer = 3;
+        Carrier = 4;
+        Dreadnought = 5;
+    }
+    message Officers {
+        required string first_name = 1;
+        required string last_name = 2;
+        required string rank = 3;
+    }
+
+    required Alignment alignment = 4;
+    required string name = 5;
+    required Class ship_class = 6;
+    required float length = 7;
+    required int32 crew_size = 8;
+    required bool armed = 9;
+    repeated Officers officers = 10;
+}
+
+service ReportingServer {
+    rpc GetReport(Coordinates) returns (stream Spaceship) {}
+}
+
+message Coordinates {
+    required string h = 1;
+    required string m = 2;
+    required string s = 3;
+    required string d = 4;
+    required string dm = 5;
+    required string ds = 6;
+}
